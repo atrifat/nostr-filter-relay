@@ -53,6 +53,8 @@ RUN mkdir -p /app/strfry/strfry-db/
 RUN mkdir -p /app/logs
 
 COPY .env.example /app/
+COPY README.md /app/
+COPY USAGE.md /app/
 COPY scripts/* /app/
 COPY config/* /app/strfry/
 
