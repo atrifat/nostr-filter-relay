@@ -23,7 +23,8 @@ WORKDIR /builder
 
 RUN apt update -y && \
     apt install -y --no-install-recommends \
-    git openssl ca-certificates && \
+    git openssl ca-certificates \
+    python3-dev make build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
