@@ -96,4 +96,4 @@ Rif'at Ahdi Ramadhani (atrifat)
 You can support this project by:
 
 - ⭐ Starring the repo, reporting issue, and sending the pull requests.
-- ⚡️ Sending some sats to my lightning address: rifat@getalby.com
+- ⚡️ Sending some sats to my lightning address: [rifat@getalby.com](lightning:rifat@getalby.com)
