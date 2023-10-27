@@ -2,12 +2,12 @@
 
 ## Basic Usage
 
-nostr-filter-relay can be used and activated as relay for "Global" feed in your Nostr clients. Simply add `wss://your-nostr-filter-relay-url.example` (example url, change it into a working nostr-relay-filter url) to your nostr clients and set it to enable reading in "Global" relay settings. A public demo (beta/test) of nostr-filter-relay will be available later if you can't run your own nostr-filter-relay server.
+nostr-filter-relay can be used and activated as relay for "Global" feed in your Nostr clients. Simply add `wss://nostr-id-relay.hf.space` (public demo relay, or change it into your own nostr-relay-filter url) to your nostr clients and set it to enable reading in "Global" relay settings.
 
-If you don't add any parameter (?) behind the url of `wss://your-nostr-filter-relay-url.example` then it is equal to using relay with parameters as default values:
+If you don't add any parameter (?) behind the url of `wss://nostr-id-relay.hf.space` then it is equal to using relay with parameters as default values:
 
 ```
-wss://your-nostr-filter-relay-url.example/?content=sfw&user=all&lang=all&nsfw_confidence=75&lang_confidence=15
+wss://nostr-id-relay.hf.space/?content=sfw&user=all&lang=all&nsfw_confidence=75&lang_confidence=15
 ```
 
 You can customize the parameter based on your needs. Check **Examples** for to get the gists of how to use nostr-filter-relay.
@@ -24,7 +24,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example`
+> Add `wss://nostr-id-relay.hf.space`
 
 > **Note**
 >
@@ -36,7 +36,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?content=sfw`
+> Add `wss://nostr-id-relay.hf.space/?content=sfw`
 
 > **Note**
 >
@@ -44,7 +44,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?content=partialsfw`
+> Add `wss://nostr-id-relay.hf.space/?content=partialsfw`
 
 > **Note**
 >
@@ -52,7 +52,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?content=nsfw`
+> Add `wss://nostr-id-relay.hf.space/?content=nsfw`
 
 > **Note**
 >
@@ -60,7 +60,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?content=all`
+> Add `wss://nostr-id-relay.hf.space/?content=all`
 
 > **Note**
 >
@@ -68,7 +68,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?user=nostr`
+> Add `wss://nostr-id-relay.hf.space/?user=nostr`
 
 > **Note**
 >
@@ -76,7 +76,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?user=activitypub`
+> Add `wss://nostr-id-relay.hf.space/?user=activitypub`
 
 > **Note**
 >
@@ -84,7 +84,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?lang=id`
+> Add `wss://nostr-id-relay.hf.space/?lang=id`
 
 > **Note**
 >
@@ -92,7 +92,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?lang=zh,ja`
+> Add `wss://nostr-id-relay.hf.space/?lang=zh,ja`
 
 > **Note**
 >
@@ -100,7 +100,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?nsfw_confidence=85` (default value: 75, valid value: 0-100)
+> Add `wss://nostr-id-relay.hf.space/?nsfw_confidence=85` (default value: 75, valid value: 0-100)
 
 > **Note**
 >
@@ -108,7 +108,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?nsfw_confidence=60` (default value: 75, valid value: 0-100)
+> Add `wss://nostr-id-relay.hf.space/?nsfw_confidence=60` (default value: 75, valid value: 0-100)
 
 > **Note**
 >
@@ -116,7 +116,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?lang_confidence=65` (default value: 15, valid value: 0-100)
+> Add `wss://nostr-id-relay.hf.space/?lang_confidence=65` (default value: 15, valid value: 0-100)
 
 > **Note**
 >
@@ -124,7 +124,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?lang=en&lang_confidence=85` (default value: 15, valid value: 0-100)
+> Add `wss://nostr-id-relay.hf.space/?lang=en&lang_confidence=85` (default value: 15, valid value: 0-100)
 
 > **Note**
 >
@@ -132,7 +132,7 @@ Scenarios:
 >
 > **Answer**
 >
-> Add `wss://your-nostr-filter-relay-url.example/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
+> Add `wss://nostr-id-relay.hf.space/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
 
 > **Note**
 >
