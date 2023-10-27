@@ -10,7 +10,7 @@ This docker image consists of several software packages:
 
 ## Demo
 
-A public demo instance will be available later.
+A public demo (beta/test) instance is available on [wss://nostr-id-relay.hf.space](wss://nostr-id-relay.hf.space). There is no guarantee for the uptime, but feel free to test.
 
 ## Usage
 
