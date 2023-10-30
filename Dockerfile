@@ -27,8 +27,11 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-RUN git clone --depth 1 --branch main https://github.com/atrifat/nostr-filter && \
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=fd097eaa2fe54f489114fefa281de1c9614c13a7
+RUN git clone --branch main https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
+    git reset --hard $NOSTR_FILTER_COMMIT_HASH_VERSION && \
+    git clean -df && \
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
