@@ -23,8 +23,8 @@ A relay software package that filter note (kind: 1) contents in various category
 - [x] NSFW/SFW content detection
 - [x] Language detection
 - [x] User type filtering (Nostr user/non bridged user, activitypub bridged user)
-- [ ] (Planned) Sentiment analysis
-- [ ] (Planned) Hate-speech detection
+- [ ] (WIP) Sentiment analysis
+- [ ] (WIP) Hate-speech detection
 - [ ] (Planned) Topic classification
 - [x] All other features included in [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) and [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool)
 
