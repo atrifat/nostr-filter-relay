@@ -27,7 +27,7 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=fd097eaa2fe54f489114fefa281de1c9614c13a7
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=9c7d7b85e7ab62ebf5ac7232b21fec08384efbb0
 RUN git clone --branch main https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
     git reset --hard $NOSTR_FILTER_COMMIT_HASH_VERSION && \
@@ -82,6 +82,7 @@ ENV UPSTREAM_WS_URL=ws://127.0.0.1:7777
 ENV NOSTR_MONITORING_BOT_PUBLIC_KEY=
 ENV WHITELISTED_PUBKEYS=
 ENV LISTEN_PORT=7860
+ENV ENABLE_FORWARD_REQ_HEADERS=false
 
 # ENV variable for nostr-monitoring-tool
 ENV ENABLE_NSFW_CLASSIFICATION=true
