@@ -27,15 +27,16 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=9c7d7b85e7ab62ebf5ac7232b21fec08384efbb0
-RUN git clone --branch main https://github.com/atrifat/nostr-filter && \
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=29d5c56d3583b2ea63f2ffb826d3b93b7fa45abd
+ENV NOSTR_FILTER_BRANCH=main
+RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
     git reset --hard $NOSTR_FILTER_COMMIT_HASH_VERSION && \
     git clean -df && \
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.3.0
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.0
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
@@ -83,6 +84,21 @@ ENV NOSTR_MONITORING_BOT_PUBLIC_KEY=
 ENV WHITELISTED_PUBKEYS=
 ENV LISTEN_PORT=7860
 ENV ENABLE_FORWARD_REQ_HEADERS=false
+# (Default: sfw, Options: all, sfw, partialsfw, and nsfw) Filter hate speech (toxic comment).
+ENV DEFAULT_FILTER_CONTENT_MODE=sfw
+ENV DEFAULT_FILTER_NSFW_CONFIDENCE=75
+# (Default: all, Multiple Options: all, or other language code)
+ENV DEFAULT_FILTER_LANGUAGE_MODE=all
+# (Default: 15, Options: 0-100) Default minimum probability/confidence score to determine the classification of language
+ENV DEFAULT_FILTER_LANGUAGE_CONFIDENCE=15
+# (Default: no, Options: all, no, yes) Filter hate speech (toxic comment). "all" will disable filtering, "no" will filter out any detected hate speech content, "yes" will select only detected hate speech content
+ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_MODE=no
+# (Default: 75, Options: 0-100) Default minimum probability/confidence score to determine the classification of hate speech (toxic comment)
+ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_CONFIDENCE=75
+# (Default: max, Options: max, sum) Methods to determine toxic content by using max value from all toxic classes score or sum value of all toxic classes score
+ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_EVALUATION_MODE=max
+# (Default: all, Options: all, nostr, activitypub) Filter user type. "nostr" for native nostr users and "activitypub" for activitypub users coming from bridge
+ENV DEFAULT_FILTER_USER_MODE=all
 
 # ENV variable for nostr-monitoring-tool
 ENV ENABLE_NSFW_CLASSIFICATION=true
