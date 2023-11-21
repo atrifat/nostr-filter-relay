@@ -2,21 +2,19 @@
 
 ## Basic Usage
 
-nostr-filter-relay can be used and activated as relay for "Global" feed in your Nostr clients. Simply add `wss://nostr-id-relay.hf.space` (public demo relay, or change it into your own nostr-relay-filter url) to your nostr clients and set it to enable reading in "Global" relay settings.
+nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nostr-id-relay.hf.space` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
 
-If you don't add any parameter (?) behind the url of `wss://nostr-id-relay.hf.space` then it is equal to using relay with parameters as default values:
+If we don't add any parameter (?) behind the url of `wss://nostr-id-relay.hf.space` then it is equal to using relay with parameters using its default values:
 
-```
-wss://nostr-id-relay.hf.space/?content=sfw&user=all&lang=all&nsfw_confidence=75&lang_confidence=15
-```
+`wss://nostr-id-relay.hf.space/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75`
 
-You can customize the parameter based on your needs. Check **Examples** for to get the gists of how to use nostr-filter-relay.
+Default values above will make relay filter events focus on **"General common users"** by serving **'family-friendly'** note events by default. However, we can customize the parameter (using single or multiple parameters) based on our needs. Check **Examples** to get the gists on how to use nostr-filter-relay.
 
 ## Examples
 
-The following are various examples of how to use nostr-filter-relay which illustrated by some (fictional or maybe factual) scenarios. Check **Advanced Usage** sections for more information about the parameters.
+The following are various examples on how to use nostr-filter-relay which illustrated by some (fictional or maybe factual) scenarios.
 
-Scenarios:
+### Content Type (SFW/NSFW) Filtering Example
 
 > **Note**
 >
@@ -62,6 +60,8 @@ Scenarios:
 >
 > Add `wss://nostr-id-relay.hf.space/?content=all`
 
+### User Type Filtering Example
+
 > **Note**
 >
 > "Hmm, i see some **bridged content** from activitypub/fediverse/mastodon (mostr.pub). I **don't want to see** any of them"
@@ -78,6 +78,8 @@ Scenarios:
 >
 > Add `wss://nostr-id-relay.hf.space/?user=activitypub`
 
+### Language Filtering Example
+
 > **Note**
 >
 > "Apaan nih isinya bule semua. Warga +62 mana suaranya ya?" (context simplified: I'm **Indonesian**)
@@ -93,6 +95,42 @@ Scenarios:
 > **Answer**
 >
 > Add `wss://nostr-id-relay.hf.space/?lang=zh,ja`
+
+### Hate speech (Toxic comments) Filtering Example
+
+> **Note**
+>
+> "I don't want to see any insult, vulgar comment, identity hate, or any toxic comments"
+>
+> **Answer**
+>
+> Add `wss://nostr-id-relay.hf.space/?toxic=no` (default value: no, valid value: no, yes, all)
+
+> **Note**
+>
+> "I don't care whether to see insult, vulgar comment, identity hate, or any toxic comments"
+>
+> **Answer**
+>
+> Add `wss://nostr-id-relay.hf.space/?toxic=all` (default value: no, valid value: no, yes, all)
+
+> **Note**
+>
+> "I want to see only insult, vulgar comment, identity hate, or any toxic comments"
+>
+> **Answer**
+>
+> Add `wss://nostr-id-relay.hf.space/?toxic=yes` (default value: no, valid value: no, yes, all)
+
+> **Note**
+>
+> "I don't want to see any insult, vulgar comment, identity hate, or any toxic comments. I want to set minimum probability score to be high (90% minimum score)."
+>
+> **Answer**
+>
+> Add `wss://nostr-id-relay.hf.space/?toxic=no&toxic_confidence=90` (default toxic_confidence: 75, valid value: 0-100)
+
+### Confidence Score Filtering Example
 
 > **Note**
 >
@@ -118,6 +156,8 @@ Scenarios:
 >
 > Add `wss://nostr-id-relay.hf.space/?lang_confidence=65` (default value: 15, valid value: 0-100)
 
+### Multiple Parameters Filtering Example
+
 > **Note**
 >
 > "I want to see english content. It should be highly accurate"
@@ -133,6 +173,8 @@ Scenarios:
 > **Answer**
 >
 > Add `wss://nostr-id-relay.hf.space/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
+
+### Non Example
 
 > **Note**
 >
