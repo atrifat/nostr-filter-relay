@@ -1,6 +1,6 @@
 # nostr-filter-relay
 
-A nostr relay docker image package which filter content based on content type (SFW/NSFW), user type, language, and various rules.
+A nostr relay docker image package which filter content based on content type (SFW/NSFW), user type, language, hate speech (toxic comment), and various rules.
 
 This docker image consists of several software packages:
 
@@ -23,8 +23,8 @@ A relay software package that filter note (kind: 1) contents in various category
 - [x] NSFW/SFW content detection
 - [x] Language detection
 - [x] User type filtering (Nostr user/non bridged user, activitypub bridged user)
+- [x] Hate speech (Toxic comment) detection
 - [ ] (WIP) Sentiment analysis
-- [ ] (WIP) Hate-speech detection
 - [ ] (Planned) Topic classification
 - [x] All other features included in [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) and [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool)
 
@@ -35,6 +35,7 @@ The following softwares are required if you want to run your own nostr-filter-re
 - Docker
 - Personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api). Check [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api) Github repository for more instructions.
 - Personal instance of [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate). Check [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) Github repository for more instructions.
+- Personal instance of [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api). Check [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api) Github repository for more instructions.
 
 ## Getting Started
 
@@ -45,7 +46,9 @@ git clone https://github.com/atrifat/nostr-filter-relay
 cd nostr-filter-relay
 ```
 
-Before running nostr-filter-relay, make sure you have already configured your own personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api) and [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate). Copy `.env.example` into `.env` file and change the configuration according to your own settings.
+Before running nostr-filter-relay, make sure you have already configured your own personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api), [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate), and [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api). You don't have to run all of them only if you enable classification for certain task (Example: NSFW detection only).
+
+Copy `.env.example` into `.env` file and change the configuration according to your own settings.
 
 ### Published Docker Image
 
@@ -85,7 +88,27 @@ docker run --init --env-file .env -p 7860:7860 -it --name nostr-filter-relay -d 
 
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2023 Rif'at Ahdi Ramadhani
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Author
 
