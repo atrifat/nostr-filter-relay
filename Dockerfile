@@ -36,7 +36,7 @@ RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-fil
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.0
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.1
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
@@ -86,6 +86,7 @@ ENV LISTEN_PORT=7860
 ENV ENABLE_FORWARD_REQ_HEADERS=false
 # (Default: sfw, Options: all, sfw, partialsfw, and nsfw) Filter hate speech (toxic comment).
 ENV DEFAULT_FILTER_CONTENT_MODE=sfw
+# (Optional. Default: 75, Options: 0-100) Default minimum probability/confidence score to determine the classification of nsfw content
 ENV DEFAULT_FILTER_NSFW_CONFIDENCE=75
 # (Default: all, Multiple Options: all, or other language code)
 ENV DEFAULT_FILTER_LANGUAGE_MODE=all
