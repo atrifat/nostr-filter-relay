@@ -28,6 +28,23 @@ A relay software package that filter note (kind: 1) contents in various category
 - [ ] (Planned) Topic classification
 - [x] All other features included in [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) and [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool)
 
+## How it works
+
+![nostr-filter-relay-flowchart](resources/flowchart-nostr-filter-relay.png)
+
+1. **nostr-filter-relay** is docker image that will run several softwares: [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool), [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter), and [hoytech/strfry](https://github.com/atrifat/nostr-filter) relay in launch script at startup.
+2. **nostr-monitoring-tool** is classification tool that fetch and subscribe notes (kind: 1) from various relays. It will process every notes (extraction of image url, text preprocessing) that were seen and send them into external AI classification tool. Currently, it will send processed notes content into NSFW Detector API instance (using [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api)), [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) instance, and Hate Speech Detector API instance (using [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api)). All three API services will give classification results (SFW/NSFW classification, Language classfication, Toxic classification) that will be saved as **custom kind 9978** in local strfry relay that has already been running. Data format is shown in [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) repository.
+
+   Basic Data flow:
+   **Source Relays (notes) -> nostr-monitoring-tool (connect to external API for classification) -> local strfry**
+
+3. Now, using **classification data (kind: 9978)** saved in local strfry relay, **atrifat/nostr-filter** will act as proxy relay and intercept any REQ from **nostr clients** and forward them into **local strfry relay**. **Local strfry relay** will respond as usual by giving events based on REQ data back to **nostr-filter**. Before sending events back to nostr clients, **nostr-filter** will check events from local strfry whether it has classification data (kind: 9978) or not. For example, users set nostr-filter-relay **parameters** to **only** gives notes which has **"English" language** then nostr-filter will only gives those notes based on **language classification data**. Any non "English" notes will be skipped.
+
+   Basic Data flow:
+   **Nostr clients <-> nostr-filter (act like frontend proxy) <-> local strfry**
+
+4. Finally, **Nostr clients** will get filtered events (example: real data from strfry are 2000 notes but filtered into 1800 "english" notes) and show the notes to users.
+
 ## Requirements
 
 The following softwares are required if you want to run your own nostr-filter-relay.
