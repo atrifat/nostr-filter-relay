@@ -1,4 +1,4 @@
-ARG DENO_VERSION=1.37.2
+ARG DENO_VERSION=1.38.5
 FROM debian:bookworm as builder_strfry
 
 WORKDIR /builder
@@ -27,7 +27,7 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=29d5c56d3583b2ea63f2ffb826d3b93b7fa45abd
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=0351e7d0ed31ec6d0b87552d20d839b25b5c7545
 ENV NOSTR_FILTER_BRANCH=main
 RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
@@ -36,7 +36,7 @@ RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-fil
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.1
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.2
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
