@@ -5,8 +5,9 @@ A nostr relay docker image package which filter content based on content type (S
 This docker image consists of several software packages:
 
 - [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) (customized/fork of [imksoo/nostr-filter](https://github.com/imksoo/nostr-filter)) as frontend filter relay
-- [hoytech/strfry](https://github.com/atrifat/nostr-filter) as backend relay
 - [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) as content classification tool
+- [hoytech/strfry](https://github.com/hoytech/strfry) as backend relay
+
 
 ## Demo
 
@@ -14,7 +15,7 @@ A public demo (beta/test) instance is available on [wss://nostr-id-relay.hf.spac
 
 ## Usage
 
-Check [USAGE.md](https://github.com/atrifat/nostr-filter-relay/blob/main/USAGE.md) for instructions on how to use nostr-filter-relay as Nostr users.
+Check [USAGE.md](https://github.com/atrifat/nostr-filter-relay/blob/main/USAGE.md) document for instructions on how to use nostr-filter-relay as Nostr users.
 
 ## Features
 
@@ -33,7 +34,7 @@ A relay software package that filter note (kind: 1) contents in various category
 ![nostr-filter-relay-flowchart](resources/flowchart-nostr-filter-relay.png)
 
 1. **nostr-filter-relay** is docker image that will run several softwares: [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool), [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter), and [hoytech/strfry](https://github.com/atrifat/nostr-filter) relay in launch script at startup.
-2. **nostr-monitoring-tool** is classification tool that fetch and subscribe notes (kind: 1) from various relays. It will process every notes (extraction of image url, text preprocessing) that were seen and send them into external AI classification tool. Currently, it will send processed notes content into NSFW Detector API instance (using [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api)), [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) instance, and Hate Speech Detector API instance (using [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api)). All three API services will give classification results (SFW/NSFW classification, Language classfication, Toxic classification) that will be saved as **custom kind 9978** in local strfry relay that has already been running. Data format is shown in [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) repository.
+2. **nostr-monitoring-tool** is classification tool that fetch and subscribe notes (kind: 1) from various relays. It will process every notes (extraction of image url, text preprocessing) that were seen and send them into external AI classification tool. Currently, it will send processed notes content into NSFW Detector API instance (using [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api)), Language Detector API instance (using [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)), and Hate Speech Detector API instance (using [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api)). All three API services will give classification results (SFW/NSFW classification, Language classfication, Toxic classification) that will be saved as **custom kind 9978** in local strfry relay that has already been running. Data format is shown in [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) repository.
 
    Basic Data flow:
    **Source Relays (notes) -> nostr-monitoring-tool (connect to external API for classification) -> local strfry**
@@ -51,7 +52,7 @@ The following softwares are required if you want to run your own nostr-filter-re
 
 - Docker
 - Personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api). Check [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api) Github repository for more instructions.
-- Personal instance of [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate). Check [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) Github repository for more instructions.
+- Personal instance of [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate). Check [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) Github repository for more instructions.
 - Personal instance of [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api). Check [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api) Github repository for more instructions.
 
 ## Getting Started
@@ -63,7 +64,7 @@ git clone https://github.com/atrifat/nostr-filter-relay
 cd nostr-filter-relay
 ```
 
-Before running nostr-filter-relay, make sure you have already configured your own personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api), [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate), and [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api). You don't have to run all of them only if you enable classification for certain task (Example: NSFW detection only).
+Before running nostr-filter-relay, make sure you have already configured your own personal instance of [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api), [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate), and [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api). You don't have to run all of them only if you enable classification for certain task (Example: NSFW detection only).
 
 Copy `.env.example` into `.env` file and change the configuration according to your own settings.
 
