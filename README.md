@@ -8,10 +8,9 @@ This docker image consists of several software packages:
 - [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) as content classification tool
 - [hoytech/strfry](https://github.com/hoytech/strfry) as backend relay
 
-
 ## Demo
 
-A public demo (beta/test) instance is available on [wss://nostr-id-relay.hf.space](wss://nostr-id-relay.hf.space). There is no guarantee for the uptime, but feel free to test.
+A public demo (beta/test) instance is available on [wss://nfrelay.app](wss://nfrelay.app) or [ws://nfrelay6saohkmipikquvrn6d64dzxivhmcdcj4d5i7wxis47xwsriyd.onion](ws://nfrelay6saohkmipikquvrn6d64dzxivhmcdcj4d5i7wxis47xwsriyd.onion) (TOR Onion Hidden Service).
 
 ## Usage
 
