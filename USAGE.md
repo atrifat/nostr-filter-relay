@@ -2,11 +2,11 @@
 
 ## Basic Usage
 
-nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nostr-id-relay.hf.space` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
+nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nfrelay.app` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
 
-If we don't add any parameter (?) behind the url of `wss://nostr-id-relay.hf.space` then it is equal to using relay with parameters using its default values:
+If we don't add any parameter (?) behind the url of `wss://nfrelay.app` then it is equal to using relay with parameters using its default values:
 
-`wss://nostr-id-relay.hf.space/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75`
+`wss://nfrelay.app/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75`
 
 Default values above will make relay filter events focus on **"General common users"** by serving **'family-friendly'** note events by default. However, we can customize the parameter (using single or multiple parameters) based on our needs. Check **Examples** to get the gists on how to use nostr-filter-relay.
 
@@ -22,7 +22,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space`
+> Add `wss://nfrelay.app`
 
 > **Note**
 >
@@ -34,7 +34,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?content=sfw`
+> Add `wss://nfrelay.app/?content=sfw`
 
 > **Note**
 >
@@ -42,7 +42,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?content=partialsfw`
+> Add `wss://nfrelay.app/?content=partialsfw`
 
 > **Note**
 >
@@ -50,7 +50,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?content=nsfw`
+> Add `wss://nfrelay.app/?content=nsfw`
 
 > **Note**
 >
@@ -58,7 +58,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?content=all`
+> Add `wss://nfrelay.app/?content=all`
 
 ### User Type Filtering Example
 
@@ -68,7 +68,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?user=nostr`
+> Add `wss://nfrelay.app/?user=nostr`
 
 > **Note**
 >
@@ -76,7 +76,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?user=activitypub`
+> Add `wss://nfrelay.app/?user=activitypub`
 
 ### Language Filtering Example
 
@@ -86,7 +86,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?lang=id`
+> Add `wss://nfrelay.app/?lang=id`
 
 > **Note**
 >
@@ -94,7 +94,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?lang=zh,ja`
+> Add `wss://nfrelay.app/?lang=zh,ja`
 
 ### Hate speech (Toxic comments) Filtering Example
 
@@ -104,7 +104,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?toxic=no` (default value: no, valid value: no, yes, all)
+> Add `wss://nfrelay.app/?toxic=no` (default value: no, valid value: no, yes, all)
 
 > **Note**
 >
@@ -112,7 +112,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?toxic=all` (default value: no, valid value: no, yes, all)
+> Add `wss://nfrelay.app/?toxic=all` (default value: no, valid value: no, yes, all)
 
 > **Note**
 >
@@ -120,7 +120,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?toxic=yes` (default value: no, valid value: no, yes, all)
+> Add `wss://nfrelay.app/?toxic=yes` (default value: no, valid value: no, yes, all)
 
 > **Note**
 >
@@ -128,7 +128,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?toxic=no&toxic_confidence=90` (default toxic_confidence: 75, valid value: 0-100)
+> Add `wss://nfrelay.app/?toxic=no&toxic_confidence=90` (default toxic_confidence: 75, valid value: 0-100)
 
 ### Confidence Score Filtering Example
 
@@ -138,7 +138,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?nsfw_confidence=85` (default value: 75, valid value: 0-100)
+> Add `wss://nfrelay.app/?nsfw_confidence=85` (default value: 75, valid value: 0-100)
 
 > **Note**
 >
@@ -146,7 +146,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?nsfw_confidence=60` (default value: 75, valid value: 0-100)
+> Add `wss://nfrelay.app/?nsfw_confidence=60` (default value: 75, valid value: 0-100)
 
 > **Note**
 >
@@ -154,7 +154,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?lang_confidence=65` (default value: 15, valid value: 0-100)
+> Add `wss://nfrelay.app/?lang_confidence=65` (default value: 15, valid value: 0-100)
 
 ### Multiple Parameters Filtering Example
 
@@ -164,7 +164,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?lang=en&lang_confidence=85` (default value: 15, valid value: 0-100)
+> Add `wss://nfrelay.app/?lang=en&lang_confidence=85` (default value: 15, valid value: 0-100)
 
 > **Note**
 >
@@ -172,7 +172,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > **Answer**
 >
-> Add `wss://nostr-id-relay.hf.space/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
+> Add `wss://nfrelay.app/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
 
 ### Non Example
 
