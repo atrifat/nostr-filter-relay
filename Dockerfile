@@ -1,5 +1,5 @@
-ARG DENO_VERSION=1.38.5
-FROM debian:bookworm as builder_strfry
+ARG DENO_VERSION=1.45.0
+FROM debian:bookworm AS builder_strfry
 
 WORKDIR /builder
 
@@ -17,7 +17,7 @@ RUN git clone --branch $STRFRY_VERSION https://github.com/hoytech/strfry strfry-
 RUN cd strfry-src && git submodule update --init && make setup-golpe && make -j4 && \
     cp strfry /builder/strfry && rm -rf strfry-src
 
-FROM node:lts-bookworm-slim as builder_node
+FROM node:lts-bookworm-slim AS builder_node
 
 WORKDIR /builder
 
@@ -27,7 +27,7 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=0351e7d0ed31ec6d0b87552d20d839b25b5c7545
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=c7f955e491fa268d2abf9feb4a31f989ef76438b
 ENV NOSTR_FILTER_BRANCH=main
 RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
@@ -36,7 +36,7 @@ RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-fil
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.4.2
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.5.0
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
@@ -44,7 +44,7 @@ RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.c
 # Setup deno binary image
 FROM denoland/deno:bin-${DENO_VERSION} AS deno_binary
 
-FROM node:lts-bookworm-slim as runner
+FROM node:lts-bookworm-slim AS runner
 
 WORKDIR /app
 
@@ -98,6 +98,10 @@ ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_MODE=no
 ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_CONFIDENCE=75
 # (Default: max, Options: max, sum) Methods to determine toxic content by using max value from all toxic classes score or sum value of all toxic classes score
 ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_EVALUATION_MODE=max
+# (Default: all, Multiple Options: all,negative,neutral,positive) Multiple options separated by comma (eg: neutral,positive => filter to get both neutral and positive sentiment)
+ENV DEFAULT_FILTER_SENTIMENT_MODE=all
+# (Default: 35, Options: 0-100) Default minimum probability/confidence score in percentage to determine the classification of sentiment
+ENV DEFAULT_FILTER_SENTIMENT_CONFIDENCE=35
 # (Default: all, Options: all, nostr, activitypub) Filter user type. "nostr" for native nostr users and "activitypub" for activitypub users coming from bridge
 ENV DEFAULT_FILTER_USER_MODE=all
 
@@ -105,10 +109,22 @@ ENV DEFAULT_FILTER_USER_MODE=all
 ENV ENABLE_NSFW_CLASSIFICATION=true
 ENV NSFW_DETECTOR_ENDPOINT=
 ENV NSFW_DETECTOR_TOKEN=
+
 ENV ENABLE_LANGUAGE_DETECTION=true
 ENV LANGUAGE_DETECTOR_ENDPOINT=
 ENV LANGUAGE_DETECTOR_TOKEN=
 ENV LANGUAGE_DETECTOR_TRUNCATE_LENGTH=350
+
+ENV ENABLE_HATE_SPEECH_DETECTION=true
+ENV HATE_SPEECH_DETECTOR_ENDPOINT=
+ENV HATE_SPEECH_DETECTOR_TOKEN=
+ENV HATE_SPEECH_DETECTOR_TRUNCATE_LENGTH=350
+
+ENV ENABLE_SENTIMENT_ANALYSIS=true
+ENV SENTIMENT_ANALYSIS_ENDPOINT=
+ENV SENTIMENT_ANALYSIS_TOKEN=
+ENV SENTIMENT_ANALYSIS_TRUNCATE_LENGTH=350
+
 ENV NOSTR_MONITORING_BOT_PRIVATE_KEY=
 ENV RELAYS_SOURCE=
 ENV RELAYS_TO_PUBLISH=ws://127.0.0.1:7777

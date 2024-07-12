@@ -4,9 +4,9 @@
 
 nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nfrelay.app` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
 
-If we don't add any parameter (?) behind the url of `wss://nfrelay.app` then it is equal to using relay with parameters using its default values:
+If we don't add any parameter (?) behind the url of `wss://nfrelay.app` then it is equal to using relay with parameters using its default parameter values:
 
-`wss://nfrelay.app/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75`
+`wss://nfrelay.app/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75&sentiment=all&sentiment_confidence=35`
 
 Default values above will make relay filter events focus on **"General common users"** by serving **'family-friendly'** note events by default. However, we can customize the parameter (using single or multiple parameters) based on our needs. Check **Examples** to get the gists on how to use nostr-filter-relay.
 
@@ -129,6 +129,32 @@ The following are various examples on how to use nostr-filter-relay which illust
 > **Answer**
 >
 > Add `wss://nfrelay.app/?toxic=no&toxic_confidence=90` (default toxic_confidence: 75, valid value: 0-100)
+
+### Sentiment Filtering Example
+
+> **Note**
+>
+> "I wanna see positive and neutral posts only."
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?sentiment=positive,neutral`
+
+> **Note**
+>
+> "My life is full of happiness. I wanna see some negativity to balance it :P"
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?sentiment=negative`
+
+> **Note**
+>
+> "I want to see neutral posts with minimum confidence/probability score 70%"
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?sentiment=neutral&sentiment_confidence=70` (default value: 35, valid value: 0-100)
 
 ### Confidence Score Filtering Example
 
