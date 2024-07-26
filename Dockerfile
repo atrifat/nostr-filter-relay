@@ -1,4 +1,4 @@
-ARG DENO_VERSION=1.45.0
+ARG DENO_VERSION=1.45.3
 FROM debian:bookworm AS builder_strfry
 
 WORKDIR /builder
@@ -27,7 +27,7 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=c7f955e491fa268d2abf9feb4a31f989ef76438b
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=4d719299b88203754b952809e4f937e6fd66fc34
 ENV NOSTR_FILTER_BRANCH=main
 RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
@@ -36,7 +36,7 @@ RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-fil
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.5.0
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.6.0
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
@@ -102,6 +102,10 @@ ENV DEFAULT_FILTER_HATE_SPEECH_TOXIC_EVALUATION_MODE=max
 ENV DEFAULT_FILTER_SENTIMENT_MODE=all
 # (Default: 35, Options: 0-100) Default minimum probability/confidence score in percentage to determine the classification of sentiment
 ENV DEFAULT_FILTER_SENTIMENT_CONFIDENCE=35
+# (Default: all, Multiple Options: list of valid topic in atrifat/nostr-filter-relay Github) Multiple options separated by comma (eg: life,music,sport,science_and_technology => filter to get life (short version of: diaries_and_life), music, sport, science_and_technology)
+ENV DEFAULT_FILTER_TOPIC_MODE=all
+# (Default: 35, Options: 0-100) Default minimum probability/confidence score in percentage to determine the classification of topic
+ENV DEFAULT_FILTER_TOPIC_CONFIDENCE=35
 # (Default: all, Options: all, nostr, activitypub) Filter user type. "nostr" for native nostr users and "activitypub" for activitypub users coming from bridge
 ENV DEFAULT_FILTER_USER_MODE=all
 
@@ -124,6 +128,11 @@ ENV ENABLE_SENTIMENT_ANALYSIS=true
 ENV SENTIMENT_ANALYSIS_ENDPOINT=
 ENV SENTIMENT_ANALYSIS_TOKEN=
 ENV SENTIMENT_ANALYSIS_TRUNCATE_LENGTH=350
+
+ENV ENABLE_TOPIC_CLASSIFICATION=true
+ENV TOPIC_CLASSIFICATION_ENDPOINT=
+ENV TOPIC_CLASSIFICATION_TOKEN=
+ENV TOPIC_CLASSIFICATION_TRUNCATE_LENGTH=350
 
 ENV NOSTR_MONITORING_BOT_PRIVATE_KEY=
 ENV RELAYS_SOURCE=
