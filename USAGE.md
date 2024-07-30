@@ -1,8 +1,26 @@
 # Relay Usage
 
+## Table of Content
+
+- [Table of Content](#table-of-content)
+- [Basic Usage](#basic-usage)
+- [Advanced Usage](#advanced-usage)
+  - [Content Type (SFW/NSFW) Filtering Example](#content-type-sfwnsfw-filtering-example)
+  - [User Type Filtering Example](#user-type-filtering-example)
+  - [Language Filtering Example](#language-filtering-example)
+  - [Hate speech (Toxic comments) Filtering Example](#hate-speech-toxic-comments-filtering-example)
+  - [Sentiment Filtering Example](#sentiment-filtering-example)
+  - [Topic Filtering Example](#topic-filtering-example)
+    - [Known Topic Category](#known-topic-category)
+  - [Confidence Score Filtering Example](#confidence-score-filtering-example)
+  - [Multiple Parameters Filtering Example](#multiple-parameters-filtering-example)
+- [Non Example](#non-example)
+
 ## Basic Usage
 
 nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nfrelay.app` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
+
+![relay-setting-amethyst-example](resources/relay-setting-amethyst.jpg)
 
 If we don't add any parameter (?) behind the url of `wss://nfrelay.app` then it is equal to using relay with parameters using its default parameter values:
 
