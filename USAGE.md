@@ -1,16 +1,34 @@
 # Relay Usage
 
+## Table of Content
+
+- [Table of Content](#table-of-content)
+- [Basic Usage](#basic-usage)
+- [Advanced Usage](#advanced-usage)
+  - [Content Type (SFW/NSFW) Filtering Example](#content-type-sfwnsfw-filtering-example)
+  - [User Type Filtering Example](#user-type-filtering-example)
+  - [Language Filtering Example](#language-filtering-example)
+  - [Hate speech (Toxic comments) Filtering Example](#hate-speech-toxic-comments-filtering-example)
+  - [Sentiment Filtering Example](#sentiment-filtering-example)
+  - [Topic Filtering Example](#topic-filtering-example)
+    - [Known Topic Category](#known-topic-category)
+  - [Confidence Score Filtering Example](#confidence-score-filtering-example)
+  - [Multiple Parameters Filtering Example](#multiple-parameters-filtering-example)
+- [Non Example](#non-example)
+
 ## Basic Usage
 
 nostr-filter-relay can be used and activated as relay for "Global" feed in our Nostr clients. Simply add `wss://nfrelay.app` (public demo relay, or change it into our own nostr-relay-filter url) to our nostr clients and set it to enable reading in "Global" relay settings.
 
+![relay-setting-amethyst-example](resources/relay-setting-amethyst.jpg)
+
 If we don't add any parameter (?) behind the url of `wss://nfrelay.app` then it is equal to using relay with parameters using its default parameter values:
 
-`wss://nfrelay.app/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75&sentiment=all&sentiment_confidence=35`
+`wss://nfrelay.app/?user=all&lang=all&content=sfw&nsfw_confidence=75&lang_confidence=15&toxic=no&toxic_confidence=75&sentiment=all&sentiment_confidence=35&topic=all&topic_confidence=35`
 
-Default values above will make relay filter events focus on **"General common users"** by serving **'family-friendly'** note events by default. However, we can customize the parameter (using single or multiple parameters) based on our needs. Check **Examples** to get the gists on how to use nostr-filter-relay.
+Default values above will make relay filter events focus on **"General common users"** by serving **'family-friendly'** note events by default. However, we can customize the parameter (using single or multiple parameters) based on our needs. Check **[Advanced Usage](#advanced-usage)** to get the gists on how to use nostr-filter-relay in various settings.
 
-## Examples
+## Advanced Usage
 
 The following are various examples on how to use nostr-filter-relay which illustrated by some (fictional or maybe factual) scenarios.
 
@@ -156,6 +174,58 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > Add `wss://nfrelay.app/?sentiment=neutral&sentiment_confidence=70` (default value: 35, valid value: 0-100)
 
+### Topic Filtering Example
+
+> **Note**
+>
+> "I prefer getting updates on news, business information, and technology."
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?topic=news,business,technology` (short version) or `wss://nfrelay.app/?topic=news_and_social_concern,business_and_entrepreneurs,science_and_technology` if user want to state clearly the topic category. List of known topics were provided [below](#known-topic-category).
+
+> **Note**
+>
+> "My favorite discussions are related to music and sport."
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?topic=music,sport`
+
+> **Note**
+>
+> "I want my feeds focused on game with minimum confidence score is 70%"
+>
+> **Answer**
+>
+> Add `wss://nfrelay.app/?topic=gaming&topic_confidence=70` (default confidence value: 35, valid value: 0-100)
+
+#### Known Topic Category
+
+List of currently known topic category in nostr-filter-relay were listed as follows:
+
+1. **arts_and_culture** (short version: "**art**" or "**culture**")
+2. **business_and_entrepreneurs** (short version: "**business**" or "**entrepreneur**")
+3. **celebrity_and_pop_culture** (short version: "**celebrity**" or "**pop**")
+4. **diaries_and_daily_life** (short version: "**diaries**" or "**daily**")
+5. **family**
+6. **fashion_and_style** (short version: "**fashion**" or "**style**")
+7. **film_tv_and_video** (short version: "**film**", or "**tv**", or "**video**")
+8. **fitness_and_health** (short version: "**fitness**" or "**health**")
+9. **food_and_dining** (short version: "**food**" or "**dining**")
+10. **gaming**
+11. **learning_and_educational** (short version: "**learning**" or "**educational**")
+12. **music**
+13. **news_and_social_concern** (short version: "**news**" or "**social**")
+14. **other_hobbies**
+15. **relationships**
+16. **science_and_technology** (short version: "**science**" or "**technology**")
+17. **sports**
+18. **travel_and_adventure** (short version: "**travel**" or "**adventure**")
+19. **youth_and_student_life** (short version: "**youth**" or "**student**")
+
+Topic classification were categorized based on previous research from [Cardiff University - Twitter Topic Classification](https://huggingface.co/cardiffnlp/twitter-roberta-base-dec2021-tweet-topic-multi-all).
+
 ### Confidence Score Filtering Example
 
 > **Note**
@@ -200,7 +270,7 @@ The following are various examples on how to use nostr-filter-relay which illust
 >
 > Add `wss://nfrelay.app/?lang=ar&lang_confidence=90&content=sfw&nsfw_confidence=50&user=nostr` (multiple parameters)
 
-### Non Example
+## Non Example
 
 > **Note**
 >
