@@ -1,4 +1,4 @@
-# Proposed NIP-32 Event Compatibility for nostr-filter-relay
+# NIP-32 Event Compatibility for nostr-filter-relay
 
 Currently (until v0.3.0), custom event kind (9978) have been used internally for classification/labelling event in [nostr-filter-relay](https://github.com/atrifat/nostr-filter-relay). To make a better compatibility with [NIP-32](https://github.com/nostr-protocol/nips/blob/master/32.md), custom event kind 9978 will be migrated and reimplemented into NIP-32 event structure as described in the following draft.
 
@@ -16,7 +16,7 @@ Currently (until v0.3.0), custom event kind (9978) have been used internally for
 
 Original event structure (kind: 9978) example implemented in nostr-filter-relay
 
-```
+```json
 {
     "kind": 9978,
     "tags":[
@@ -35,7 +35,7 @@ The label were encoded as JSON stringified into content field. Original event st
 
 Proposed NIP-32 event structure
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -43,6 +43,7 @@ Proposed NIP-32 event structure
         ["p","originalAuthorHexPubkey"],
         ["L","ISO-639-1"],
         ["L","app.nfrelay.language"],
+        ["label_minimum_score","app.nfrelay.language", "0.35"],
         ["label_score_type","app.nfrelay.language", "float"],
         ["label_model","app.nfrelay.language","atrifat/language-detector-api","https://github.com/atrifat/language-detector-api"],
         ["l","en","ISO-639-1"],
@@ -58,7 +59,7 @@ This example use two different namespace ("ISO-639-1", "app.nfrelay.language") t
 
 Example of multi label language event structure
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -66,14 +67,15 @@ Example of multi label language event structure
         ["p","originalAuthorHexPubkey"],
         ["L","ISO-639-1"],
         ["L","app.nfrelay.language"],
+        ["label_minimum_score","app.nfrelay.language", "0.35"],
         ["label_score_type","app.nfrelay.language", "float"],
         ["label_model","app.nfrelay.language","atrifat/language-detector-api","https://github.com/atrifat/language-detector-api"],
         ["l","en","ISO-639-1"],
         ["l","en","app.nfrelay.language"],
-        ["label_score","en","app.nfrelay.language",0.55],
+        ["label_score","en","app.nfrelay.language","0.55"],
         ["l","ja","ISO-639-1"],
         ["l","ja","app.nfrelay.language"],
-        ["label_score","ja","app.nfrelay.language",0.45],
+        ["label_score","ja","app.nfrelay.language","0.45"],
     ]
 }
 ```
@@ -84,7 +86,7 @@ This example show the use case for multiple label language. There are cases when
 
 **Original event structure (kind: 9978) example implemented in nostr-filter-relay**
 
-```
+```json
 {
     "kind": 9978,
     "tags":[
@@ -100,7 +102,7 @@ There are lots of verbose extra data encoded in content field. In proposed struc
 
 **Proposed Single label (single link) event structure for SFW content example:**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -124,7 +126,7 @@ There are lots of verbose extra data encoded in content field. In proposed struc
 
 **Proposed Single label (single link) event structure for NSFW content example:**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -148,7 +150,7 @@ There are lots of verbose extra data encoded in content field. In proposed struc
 
 **Proposed Multi label (Multi link) event structure:**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -157,7 +159,7 @@ There are lots of verbose extra data encoded in content field. In proposed struc
         ["L","app.nfrelay.content-safety"],
         ["label_schema","app.nfrelay.content-safety","sfw","nsfw"],
         ["label_schema_original","app.nfrelay.content-safety","hentai","neutral","pornography","sexy"],
-        ["label_minimum_score","app.nfrelay.content-safety", 0.5],
+        ["label_minimum_score","app.nfrelay.content-safety", "0.5"],
         ["label_model","app.nfrelay.content-safety","atrifat/nsfw-detector-api","https://github.com/atrifat/nsfw-detector-api"],
         ["l","nsfw","app.nfrelay.content-safety"],
         ["label_score","nsfw","app.nfrelay.content-safety", "0.9","https://example1/image.jpg"],
@@ -181,7 +183,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Original event structure (kind: 9978) example implemented in nostr-filter-relay**
 
-```
+```json
 {
     "kind": 9978,
     "tags":[
@@ -196,7 +198,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Proposed NIP-32 event (toxic example)**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -222,7 +224,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Proposed NIP-32 event (non-toxic example)**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -250,7 +252,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Original event structure (kind: 9978) example implemented in nostr-filter-relay**
 
-```
+```json
 {
     "kind": 9978,
     "tags":[
@@ -265,7 +267,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Proposed NIP-32 event**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -288,7 +290,7 @@ Notes (kind:1) can have multiple link/url with different label result for each u
 
 **Original event structure (kind: 9978) example implemented in nostr-filter-relay**
 
-```
+```json
 {
     "kind": 9978,
     "tags":[
@@ -305,7 +307,7 @@ Topic classification were categorized based on previous research from [Cardiff U
 
 **Proposed NIP-32 event**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
@@ -327,7 +329,7 @@ Topic classification were categorized based on previous research from [Cardiff U
 
 **Compatibility with different namespace (social.ontolo.categories) possibility example**
 
-```
+```json
 {
     "kind": 1985,
     "tags": [
