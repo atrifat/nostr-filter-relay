@@ -30,6 +30,8 @@ A relay software package that filter note (kind: 1) contents in various category
 - [x] Topic classification
 - [x] All other features included in [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) and [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool)
 
+nostr-filter-relay will adopt [NIP-32 event structure](NIP32-COMPATIBILITY.md) while **deprecating** old structure event (kind: 9978) in the next release (v0.4.0 and later version).
+
 ## How it works
 
 ![nostr-filter-relay-flowchart](resources/flowchart-nostr-filter-relay.png)
