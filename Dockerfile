@@ -1,4 +1,4 @@
-ARG DENO_VERSION=1.45.3
+ARG DENO_VERSION=1.46.1
 FROM debian:bookworm AS builder_strfry
 
 WORKDIR /builder
@@ -27,7 +27,7 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare nostr-filter
-ENV NOSTR_FILTER_COMMIT_HASH_VERSION=4d719299b88203754b952809e4f937e6fd66fc34
+ENV NOSTR_FILTER_COMMIT_HASH_VERSION=2cd3647254c44aac804479605f9e6173132d2cea
 ENV NOSTR_FILTER_BRANCH=main
 RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-filter && \
     cd /builder/nostr-filter && \
@@ -36,7 +36,7 @@ RUN git clone --branch $NOSTR_FILTER_BRANCH https://github.com/atrifat/nostr-fil
     npm ci --omit=dev && npx tsc
 
 # Prepare nostr-monitoring-tool
-ENV NOSTR_MONITORING_TOOL_VERSION=v0.6.0
+ENV NOSTR_MONITORING_TOOL_VERSION=v0.7.0
 RUN git clone --depth 1 --branch $NOSTR_MONITORING_TOOL_VERSION https://github.com/atrifat/nostr-monitoring-tool && \
     cd /builder/nostr-monitoring-tool && \
     npm ci --omit=dev
@@ -84,6 +84,25 @@ ENV NOSTR_MONITORING_BOT_PUBLIC_KEY=
 ENV WHITELISTED_PUBKEYS=
 ENV LISTEN_PORT=7860
 ENV ENABLE_FORWARD_REQ_HEADERS=false
+
+# (Default: true) Use NIP-32 Event Format (kind: 1985) or Deprecated Legacy Format (kind: 9978). Legacy format will be fully replaced by NIP-32 event format in the future.
+ENV USE_NIP_32_EVENT_FORMAT=true
+
+# Set maximum websocket server payload size (maximum allowed message size) in bytes
+ENV MAX_WEBSOCKET_PAYLOAD_SIZE=1000000
+
+# Set maximum number of parallel concurrency limit when requesting classification events to relay
+ENV RELAY_REQUEST_CONCURRENCY_LIMIT=10
+
+# Set true to enable rate limit for number of websocket message
+ENV ENABLE_RATE_LIMIT=false
+# Set to "IP" to rate limit based on IP addresses otherwise using socketId
+ENV RATE_LIMIT_KEY="IP"
+# Maximum number of websocket message (REQ, EVENT, etc) per second per IP/socketId
+ENV MAX_WEBSOCKET_MESSAGE_PER_SECOND=10
+# Maximum number of websocket message (REQ, EVENT, etc) per minute per IP/socketId
+ENV MAX_WEBSOCKET_MESSAGE_PER_MINUTE=1000
+
 # (Default: sfw, Options: all, sfw, partialsfw, and nsfw) Filter hate speech (toxic comment).
 ENV DEFAULT_FILTER_CONTENT_MODE=sfw
 # (Optional. Default: 75, Options: 0-100) Default minimum probability/confidence score to determine the classification of nsfw content
@@ -110,6 +129,12 @@ ENV DEFAULT_FILTER_TOPIC_CONFIDENCE=35
 ENV DEFAULT_FILTER_USER_MODE=all
 
 # ENV variable for nostr-monitoring-tool
+
+# (Optional. Default: true) Set whether to publish NIP-32 classification event (kind: 1985)
+ENV ENABLE_NIP_32_CLASSIFICATION_EVENT=true
+# (Optional. Default: true) (Deprecated) Set whether to publish legacy classification event (kind: 9978)
+ENV ENABLE_LEGACY_CLASSIFICATION_EVENT=true
+
 ENV ENABLE_NSFW_CLASSIFICATION=true
 ENV NSFW_DETECTOR_ENDPOINT=
 ENV NSFW_DETECTOR_TOKEN=
