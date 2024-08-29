@@ -30,19 +30,19 @@ A relay software package that filter note (kind: 1) contents in various category
 - [x] Topic classification
 - [x] All other features included in [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter) and [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool)
 
-nostr-filter-relay will adopt [NIP-32 event structure](NIP32-COMPATIBILITY.md) while **deprecating** old structure event (kind: 9978) in the next release (v0.4.0 and later version).
+nostr-filter-relay use [NIP-32 event structure](NIP32-COMPATIBILITY.md) while **deprecating** old structure event (kind: 9978) (since v0.4.0 and later version).
 
 ## How it works
 
 ![nostr-filter-relay-flowchart](resources/flowchart-nostr-filter-relay.png)
 
 1. **nostr-filter-relay** is docker image that will run several softwares: [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool), [atrifat/nostr-filter](https://github.com/atrifat/nostr-filter), and [hoytech/strfry](https://github.com/atrifat/nostr-filter) relay in launch script at startup.
-2. **nostr-monitoring-tool** is classification tool that fetch and subscribe notes (kind: 1) from various relays. It will process every notes (extraction of image url, text preprocessing) that were seen and send them into external AI classification tool. Currently, it will send processed notes content into NSFW Detector API instance (using [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api)), Language Detector API instance (using [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)), Hate Speech Detector API instance (using [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api)), Sentiment Analysis API instance (using [atrifat/sentiment-analysis-api](https://github.com/atrifat/sentiment-analysis-api)), and Topic Classification API instance (using [atrifat/topic-classification-api](https://github.com/atrifat/topic-classification-api)). All five API services will give classification results (SFW/NSFW classification, Language classfication, Toxic classification, Sentiment Analysis, Topic Classification) that will be saved as **custom kind 9978** in local strfry relay that has already been running. Data format is shown in [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) repository.
+2. **nostr-monitoring-tool** is classification tool that fetch and subscribe notes (kind: 1) from various relays. It will process every notes (extraction of image url, text preprocessing) that were seen and send them into external AI classification tool. Currently, it will send processed notes content into NSFW Detector API instance (using [atrifat/nsfw-detector-api](https://github.com/atrifat/nsfw-detector-api)), Language Detector API instance (using [atrifat/language-detector-api](https://github.com/atrifat/language-detector-api) or [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)), Hate Speech Detector API instance (using [atrifat/hate-speech-detector-api](https://github.com/atrifat/hate-speech-detector-api)), Sentiment Analysis API instance (using [atrifat/sentiment-analysis-api](https://github.com/atrifat/sentiment-analysis-api)), and Topic Classification API instance (using [atrifat/topic-classification-api](https://github.com/atrifat/topic-classification-api)). All five API services will give classification results (SFW/NSFW classification, Language classfication, Toxic classification, Sentiment Analysis, Topic Classification) that will be saved as **NIP-32 event (kind: 1985)** or **legacy custom kind 9978** in local strfry relay that has already been running. Data format is shown in [atrifat/nostr-monitoring-tool](https://github.com/atrifat/nostr-monitoring-tool) repository.
 
    Basic Data flow:
    **Source Relays (notes) -> nostr-monitoring-tool (connect to external API for classification) -> local strfry**
 
-3. Now, using **classification data (kind: 9978)** saved in local strfry relay, **atrifat/nostr-filter** will act as proxy relay and intercept any REQ from **nostr clients** and forward them into **local strfry relay**. **Local strfry relay** will respond as usual by giving events based on REQ data back to **nostr-filter**. Before sending events back to nostr clients, **nostr-filter** will check events from local strfry whether it has classification data (kind: 9978) or not. For example, users set nostr-filter-relay **parameters** to **only** gives notes which has **"English" language** then nostr-filter will only gives those notes based on **language classification data**. Any non "English" notes will be skipped.
+3. Now, using **classification data (kind: 1985 or 9978)** saved in local strfry relay, **atrifat/nostr-filter** will act as proxy relay and intercept any REQ from **nostr clients** and forward them into **local strfry relay**. **Local strfry relay** will respond as usual by giving events based on REQ data back to **nostr-filter**. Before sending events back to nostr clients, **nostr-filter** will check events from local strfry whether it has classification data (kind: 1985 or 9978) or not. For example, users set nostr-filter-relay **parameters** to **only** gives notes which has **"English" language** then nostr-filter will only gives those notes based on **language classification data**. Any non "English" notes will be skipped.
 
    Basic Data flow:
    **Nostr clients <-> nostr-filter (act like frontend proxy) <-> local strfry**
@@ -64,7 +64,7 @@ The following softwares are required if you want to run your own nostr-filter-re
 
 You can start by cloning this repository:
 
-```
+```shell
 git clone https://github.com/atrifat/nostr-filter-relay
 cd nostr-filter-relay
 ```
@@ -79,13 +79,13 @@ If you don't want to build docker image locally, you can use the published versi
 
 Run it:
 
-```
+```shell
 docker run --init --env-file .env -p 7860:7860 -it ghcr.io/atrifat/nostr-filter-relay:main
 ```
 
 or run it in the background (daemon):
 
-```
+```shell
 docker run --init --env-file .env -p 7860:7860 -it --name nostr-filter-relay -d ghcr.io/atrifat/nostr-filter-relay:main
 ```
 
@@ -93,19 +93,19 @@ docker run --init --env-file .env -p 7860:7860 -it --name nostr-filter-relay -d 
 
 Start building the docker image:
 
-```
+```shell
 docker build -t nostr-filter-relay -f Dockerfile .
 ```
 
 You can start running nostr-filter-relay
 
-```
+```shell
 docker run --init --env-file .env -p 7860:7860 -it nostr-filter-relay
 ```
 
 or run it in the background (daemon):
 
-```
+```shell
 docker run --init --env-file .env -p 7860:7860 -it --name nostr-filter-relay -d nostr-filter-relay
 ```
 
